@@ -1,4 +1,4 @@
-package com.myapplication
+package com.github.jeffnyauke.hymnal
 
 import MainView
 import android.os.Bundle
