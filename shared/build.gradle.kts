@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.org.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.com.android.library)
+    alias(libs.plugins.org.jetbrains.compose)
 }
 
 kotlin {
@@ -32,9 +32,9 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                api("androidx.activity:activity-compose:1.7.2")
-                api("androidx.appcompat:appcompat:1.6.1")
-                api("androidx.core:core-ktx:1.12.0")
+                api(libs.androidx.activity.compose)
+                api(libs.appcompat)
+                api(libs.core.ktx)
             }
         }
         val iosX64Main by getting
@@ -70,6 +70,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain((findProperty("kotlin.jdkVersion") as String).toInt())
     }
 }

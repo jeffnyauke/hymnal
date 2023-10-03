@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.org.jetbrains.kotlin.multiplatform)
+    alias(libs.plugins.com.android.application)
+    alias(libs.plugins.org.jetbrains.compose)
 }
 
 kotlin {
@@ -21,18 +21,20 @@ android {
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
+    val jdkVersion = findProperty("kotlin.jdkVersion") as String
+
     defaultConfig {
         applicationId = "com.github.jeffnyauke.hymnal"
         minSdk = (findProperty("android.minSdk") as String).toInt()
         targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = (findProperty("android.versionCode") as String).toInt()
+        versionName = findProperty("android.versionName") as String
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.toVersion(jdkVersion)
+        targetCompatibility = JavaVersion.toVersion(jdkVersion)
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(jdkVersion.toInt())
     }
 }
